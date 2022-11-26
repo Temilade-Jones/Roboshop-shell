@@ -9,3 +9,6 @@ STAT() {
 PRINT() {
 echo -e "\e[33M$1\e[0m"
 }
+
+LOG=/tmp/$component.log
+rf -f$log
