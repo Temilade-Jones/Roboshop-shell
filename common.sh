@@ -57,11 +57,15 @@ NODEJS () { PRINT "Install Nodejs Repos"
           systemctl daemon-reload &>>LOG
           STAT $?
 
+          PRINT "Enable ${COMPONENT} service"
+          systemctl enable ${COMPONENT} &>>LOG
+          STAT $?
+
           PRINT "Restart ${COMPONENT}"
           systemctl restart ${COMPONENT} &>>LOG
           STAT $?
 
-          PRINT "Enable ${COMPONENT} service"
-          systemctl enable ${COMPONENT} &>>LOG
-          STAT $?
+
+
+
 }
