@@ -8,7 +8,8 @@ STAT() {
 
 PRINT() {
 echo -e "\e[33M$1\e[0m"
+echo check error in $LOG file
 }
 
 LOG=/tmp/$component.log
-rf -f$log
+rm -f $log
