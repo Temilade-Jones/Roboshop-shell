@@ -14,7 +14,7 @@ echo check error in $LOG file
 LOG=/tmp/$component.log
 rm -f $log
 
-NODEJES () {PRINT "Install Nodejs Repos"
+NODEJES () { PRINT "Install Nodejs Repos"
           curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>LOG
           STAT $?
 
@@ -24,7 +24,7 @@ NODEJES () {PRINT "Install Nodejs Repos"
 
           PRINT "Adding application user"
           id roboshop &>>$LOG
-          if [ $? -ne 0]; then
+          if [ $? -ne 0 ]; then
             useradd roboshop &>>LOG
             fi
           STAT $?
