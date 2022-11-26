@@ -5,45 +5,37 @@ if [ -z "$1" ]; then
 
 ROBOSHOP_MYSQL_PASSWORD=$1
 
-echo -e "\e[33mDownloading mysql repo file\E[0m"
+STAT() {
+  if [ $? -eq 0 ]; then
+    echo SUCCESS
+  else
+    echo FAILURE
+  fi
+}
+
+PRINT() {
+echo -e "\e[33M$1\e[0m"
+}
+
+PRINT "Downloading MySQL Repo file"
 curl -s -L -o /etc/yum.repos.d/mysql.repo https://raw.githubusercontent.com/roboshop-devops-project/mysql/main/mysql.repo
-if [ $? -eq 0 ]; then
-  echo SUCCESS
-else
-  echo FAILURE
-fi
+STAT $?
 
-echo disable mysql 8 version repo
+PRINT "disable mysql 8 version repo"
 dnf module disable mysql -y
-if [ $? -eq 0 ]; then
-  echo SUCCESS
-else
-  echo FAILURE
-fi
+STAT $?
 
-echo install mysql
+PRINT "install mysql"
 yum install mysql-community-server -y
-if [ $? -eq 0 ]; then
-  echo SUCCESS
-else
-  echo FAILURE
-fi
+STAT $?
 
-echo enable mysql service
+PRINT "enable mysql service"
 systemctl enable mysqld
-if [ $? -eq 0 ]; then
-  echo SUCCESS
-else
-  echo FAILURE
-fi
+STAT $?
 
-echo start mysql service
+PRINT "start mysql service"
 systemctl restart mysqld
-if [ $? -eq 0 ]; then
-  echo SUCCESS
-else
-  echo FAILURE
-fi
+STAT $?
 
 echo show databases | mysql -uroot -p${ROBOSHOP_MYSQL_PASSWORD}
 if [ $? -ne 0 ]
@@ -54,3 +46,5 @@ then
 
 fi
 
+
+}
