@@ -1,4 +1,11 @@
-echo downloading mysql repo file
+if [ -z "$1" ]; then
+  echo input argument password is needed
+  exit
+  fi
+
+ROBOSHOP_MYSQL_PASSWORD=$1
+
+echo -e "\e[33mDownloading mysql repo file\E[0m"
 curl -s -L -o /etc/yum.repos.d/mysql.repo https://raw.githubusercontent.com/roboshop-devops-project/mysql/main/mysql.repo
 if [ $? -eq 0 ]; then
   echo SUCCESS
