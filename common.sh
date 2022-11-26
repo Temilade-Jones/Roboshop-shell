@@ -14,7 +14,7 @@ echo check error in $LOG file
 LOG=/tmp/$component.log
 rm -f $log
 
-NODEJES () { PRINT "Install Nodejs Repos"
+NODEJS () { PRINT "Install Nodejs Repos"
           curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>LOG
           STAT $?
 
