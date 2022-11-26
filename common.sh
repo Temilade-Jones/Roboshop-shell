@@ -42,7 +42,7 @@ NODEJS () { PRINT "Install Nodejs Repos"
           unzip -o /tmp/${COMPONENT}.zip &>>LOG
           STAT $?
 
-          mv cart-main ${COMPONENT} &>>LOG
+          mv ${COMPONENT}-main ${COMPONENT} &>>LOG
           cd ${COMPONENT}
 
           PRINT "Install Nodejs dependencies for App"
