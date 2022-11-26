@@ -30,38 +30,38 @@ NODEJS () { PRINT "Install Nodejs Repos"
           STAT $?
 
           PRINT "Download App content"
-          curl -s -L -o /tmp/cart.zip "https://github.com/roboshop-devops-project/cart/archive/main.zip" &>>LOG
+          curl -s -L -o /tmp/${COMPONENT}.zip "https://github.com/roboshop-devops-project/${COMPONENT}/archive/main.zip" &>>LOG
           STAT $?
 
           PRINT "Remove previous version of App"
           cd /home/roboshop &>>LOG
-          rm -rf cart
+          rm -rf ${COMPONENT}
           STAT $?
 
           PRINT "Extracting App content"
-          unzip -o /tmp/cart.zip &>>LOG
+          unzip -o /tmp/${COMPONENT}.zip &>>LOG
           STAT $?
 
-          mv cart-main cart &>>LOG
-          cd cart
+          mv cart-main ${COMPONENT} &>>LOG
+          cd ${COMPONENT}
 
           PRINT "Install Nodejs dependencies for App"
           npm install &>>LOG
           STAT $?
 
           PRINT "Configure endpoints for systemD configuration"
-          sed -i -e 's/REDIS_ENDPOINT/redis.devopb69.online/' -e 's/CATALOGUE_ENPOINT/catalogue.devopsb69.online/' &>>LOG
+          sed -i -e 's/REDIS_ENDPOINT/redis.devopb69.online/' -e 's/CATALOGUE_ENDPOINT/catalogue.devopsb69.online/' /home/roboshop/${COMPONENT}/systemd.service &>>LOG
           STAT $?
 
           PRINT "Reload SystemD"
           systemctl daemon-reload &>>LOG
           STAT $?
 
-          PRINT "Restart cart"
-          systemctl restart cart &>>LOG
+          PRINT "Restart ${COMPONENT}"
+          systemctl restart ${COMPONENT} &>>LOG
           STAT $?
 
-          PRINT "Enable cart service"
-          systemctl enable cart &>>LOG
+          PRINT "Enable ${COMPONENT} service"
+          systemctl enable ${COMPONENT} &>>LOG
           STAT $?
 }
